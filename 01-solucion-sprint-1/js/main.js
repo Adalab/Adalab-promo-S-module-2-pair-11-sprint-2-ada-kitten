@@ -90,8 +90,23 @@ function addNewKitten(event) {
     } else {
         if (valueDesc !== "" && valuePhoto !== "" && valueName !== "") {
             labelMessageError.innerHTML = "";
-        }
+        } 
     }
+    const newKittenDataObject = {
+        image: valuePhoto,
+        name: valueName,
+        desc: valueDesc,
+        race: valueRace,
+      };
+    kittenDataList.push (newKittenDataObject);
+
+    inputDesc.value = "";
+    inputPhoto.value = "";
+    inputName.value =  "";
+
+    labelMessageError.innerHTML = 'Mola! Un nuevo gatito en Adalab!';
+
+    renderKittenList(kittenDataList);
 }
 //Cancelar la búsqueda de un gatito
 function cancelNewKitten(event) {
@@ -107,15 +122,17 @@ function filterKitten(event) {
     event.preventDefault();
     const descrSearchText = input_search_desc.value;
     listElement.innerHTML = "";
-    for (const kittenItem of kittenDataList) {
-        if (kittenItem.desc.includes(descrSearchText)) {
-            listElement.innerHTML += renderKitten(kittenItem);
-        }
-    }
+    // for (const kittenItem of kittenDataList) {
+    //     if (kittenItem.desc.includes(descrSearchText)) {
+    //         listElement.innerHTML += renderKitten(kittenItem);
+    //     }
+    // }
+    .filter((kitten) => kitten.desc.includes(descrSearchText));
+    .filter((kitten) => kitten.race === raceSearchText);
 }
 
 //Mostrar el litado de gatitos en ell HTML
-renderKittenList(kittenDataList);
+// renderKittenList(kittenDataList);
 
 //Eventos
 linkNewFormElememt.addEventListener("click", handleClickNewCatForm);
