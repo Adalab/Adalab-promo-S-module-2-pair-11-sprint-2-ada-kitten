@@ -93,12 +93,12 @@ La solución del ejercicio completo se subirá al final del módulo, si en una s
 
 #### 2.12 Métodos funcionales de arrays
 
-- [ ] 1. **FILTRAR:** Filtrar por descripción
-- [ ] 2. **FILTRAR:** Filtrar por descripción y por raza
+- [x] 1. **FILTRAR:** Filtrar por descripción
+- [x] 2. **FILTRAR:** Filtrar por descripción y por raza
 
 #### 2.13 Peticiones al servidor I
 
-- [ ] 1. **LISTADO:** Obtener listado de gatitos desde el servidor
+- [x] 1. **LISTADO:** Obtener listado de gatitos desde el servidor
 
 #### 2.14 Peticiones al servidor II
 
@@ -108,3 +108,8 @@ La solución del ejercicio completo se subirá al final del módulo, si en una s
 #### 2.15 DOM Avanzado
 
 - [ ] 1. **LISTADO:** Cambiar a DOM Avanzado
+
+
+# Dudas 
+
+**20/2/23** -> Ver si el listado está bien (pintar en el html) [2.13]
