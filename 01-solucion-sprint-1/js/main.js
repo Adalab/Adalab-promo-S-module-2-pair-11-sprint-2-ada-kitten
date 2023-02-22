@@ -17,6 +17,8 @@ const input_search_desc = document.querySelector('.js_in_search_desc');
 const GITHUB_USER = '<pleivaizq>';
 const SERVER_URL = `https://dev.adalab.es/api/kittens/${GITHUB_USER}`;
 
+const kittenListStored = JSON.parse(localStorage.getItem('kittensList'));
+
 //Objetos con cada gatito
 
 const kittenData_1 = {
@@ -42,39 +44,97 @@ let kittenDataList = [];
 
 //Funciones
 
+// Fetch (petición al servidor)
+
 fetch(SERVER_URL, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'},
-  }).then(response => response.json())
-  .then(data => {
-    console.log(data)
-    kittenDataList = data.results});
-  
-  
+ })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+    kittenDataList = data.results.map((kitten) => ({
+        name:kitten.name,
+        desc: kitten.desc,
+        image: kitten.image,
+        race: kitten.race,
+        renderKittenList(kittenDataList){
+ }
+    }))
+});
+
+
+if (kittenListStored) {
+    renderKittenList(kittenListStored)
+  } else {
+    fetch(SERVER_URL, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'},
+     })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        kittenDataList = data.results.map((kitten) => ({
+            name:kitten.name,
+            desc: kitten.desc,
+            image: kitten.image,
+            race: kitten.race,
+        }))
+     kittenListStored = localStorage.setItem('kittenDataList', JSON.stringify(kittenDataList))
+     renderKittenList(kittenDataList);
+      });
+  }
+
 
 function renderKitten(kittenData) {
-    const kitten = `<li class="card">
-    <article>
-      <img
-        class="card_img"
-        src=${kittenData.image}
-        alt="gatito"
-      />
-      <h3 class="card_title">${kittenData.name}</h3>
-      <h3 class="card_race">${kittenData.race}</h3>
-      <p class="card_description">
-      ${kittenData.desc}
-      </p>
-    </article>
-    </li>`;
-    return kitten;
+    const liElement = document.createElement('li');
+    
+    liElement.classList.add('list');
+    
+    const articleElement = document.createElement('article');
+    
+    const imgElement = document.createElement('img');
+    imgElement.classList.add('card_img');
+    imgElement.src=kittenData.image;
+    imgElement.alt='Gatito';
+
+    const h3Element = document.createElement('h3');
+
+// Falta un h3 (se llaman igual)
+
+    const pElement = document.createElement('p');
+    
+
+    liElement.appendChild(articleElement);
+    articleElement.appendChild(imgElement);
+    articleElement.appendChild(h3Element);
+    articleElement.appendChild(pElement);
 }
-function renderKittenList(kittenDataList) {
-    listElement.innerHTML = "";
-    for (const kittenItem of kittenDataList) {
-        listElement.innerHTML += `<ul class="list js-list"> ${kittenItem.name} - desc: ${kittenItem.desc} - race: ${kittenItem.race} </ul>`;
-    }
-}
+
+
+//     const kitten = `<li class="card">
+//     <article>
+//       <img
+//         class="card_img"
+//         src=${kittenData.image}
+//         alt="gatito"
+//       />
+//       <h3 class="card_title">${kittenData.name}</h3>
+//       <h3 class="card_race">${kittenData.race}</h3>
+//       <p class="card_description">
+//       ${kittenData.desc}
+//       </p>
+//     </article>
+//     </li>`;
+//     return kitten;
+// }
+
+// function renderKittenList(kittenDataList) {
+//     listElement.innerHTML = "";
+//     for (const kittenItem of kittenDataList) {
+//         listElement.innerHTML += `<ul class="list js-list"> ${kittenItem.name} - desc: ${kittenItem.desc} - race: ${kittenItem.race} </ul>`;
+//     }
+// }
 
 //Mostrar/ocultar el formulario
 
@@ -151,7 +211,7 @@ function filterKitten(event) {
 
 
 //Mostrar el litado de gatitos en ell HTML
-renderKittenList(kittenDataList);
+// renderKittenList(kittenDataList);
 
 //Eventos
 
